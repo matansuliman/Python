@@ -2,18 +2,15 @@ import pandas as pd
 
 file_path = "toy_example.csv"
 
- #Q 1.1
  #Complexity: O(1)
 def load_history(file_path):
 	return pd.read_csv(file_path)
 
-print("\n Q 1.1")
 history = load_history(file_path)
 print(history.head())
 
 
 
- #Q 1.2
  #Complexity: O(n*m)
 def prepare_history(file_path):
 	file = load_history(file_path)
@@ -23,12 +20,10 @@ def prepare_history(file_path):
 	file['played_songs'] = played_songs
 	return file
 
-print("\n Q 1.2")
 history = prepare_history(file_path)
 print(history.head())
 
 
- #Q 1.3
  #Complexity: O(n*m)
 def print_history(file_path):
 	file = prepare_history(file_path) #prepare_history() complexsity O(n*m)
@@ -43,12 +38,10 @@ def print_history(file_path):
 	if (count != 0): avg = sum / count #calc avarage
 	print("Average length of the songs per user is %.2f" % avg) #display with 2 decimal
 
-print("\n Q 1.3")
 print_history(file_path)
 
 
 
- #Q 2.1
  #Complexity: O(n*m)
 def get_songs(file_path):
 	file = prepare_history(file_path) #prepare_history() complexsity O(n*m)
@@ -63,12 +56,10 @@ def get_songs(file_path):
 			songs.append(song_name) #append() complexsity O(1)
 	return songs
 
-print("\n Q 2.1")
 songs = get_songs(file_path)
 print(songs)
 
 
- #Q 2.2
  #Complexity: O(n*m)
 def get_singers(file_path):
 	file = prepare_history(file_path) #prepare_history() complexsity O(n*m)
@@ -82,12 +73,10 @@ def get_singers(file_path):
 			singers.append(singer_name) #append() complexsity O(1)
 	return singers
 
-print("\n Q 2.2")
 singers = get_singers(file_path)
 print(singers)
 
 
- #Q 2.3
  #Complexity: O(n*m)
 def count_singers(file_path):
 	file = prepare_history(file_path) #prepare_history() complexsity O(n*m)
@@ -110,13 +99,11 @@ def count_singers(file_path):
 		i += 1
 	return singers, count 
 
-print("\n Q 2.3")
 singers, singer_count = count_singers(file_path)
 for singer, count in zip(singers, singer_count):
 	print(f'{singer}: {count}')
 
 
- #Q 3.1
  #Complexity: O(n*m)
  #explanation: bucket sort to al
 def hist_by_letter(file_path):
@@ -130,7 +117,6 @@ def hist_by_letter(file_path):
 		singer_count_by_letter[ord(singer_letter) - minValue] += 1 #complexsity O(1)
 	return singer_count_by_letter
 
-print("\n Q 3.1")
 singers, singer_count = count_singers(file_path)
 singer_count_by_letter = hist_by_letter(file_path)
 print(singer_count_by_letter)
@@ -138,7 +124,6 @@ print(singer_count_by_letter)
 
 
 import matplotlib.pyplot as plt
- #Q 3.2
  #Complexity: O(n*m)
 def plot_bar(file_path):
 	x_arr = [i for i in range(0, 27)] # values for x
@@ -151,11 +136,9 @@ def plot_bar(file_path):
 	plt.hist(data, bins=x_arr, align='left')
 	plt.show()
 
-print("\n Q 3.2")
 plot_bar(file_path)
 
 
- #Q 4
  #Complexity: O(n*m)
 def best_song(file_path):
 	file = prepare_history(file_path) #prepare_history() complexsity O(n*m)
@@ -168,6 +151,5 @@ def best_song(file_path):
 			else: song_count[song_name] = 1 #complexsity O(1)
 	print(max(song_count)) #complexsity O(n*m)
 
-print("\n Q 4")
 file_path = "my_history.csv"
 best_song(file_path)
