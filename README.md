@@ -1,6 +1,5 @@
 # python project that profiles beams
 
-
 # Overview
 The goal of this project is to process images of laser beams to measure their size and position. The code uses a 1D Gaussian function to fit the data and measure beam properties. Tracking the position of the beam over time helps measure pointing stability.
 
