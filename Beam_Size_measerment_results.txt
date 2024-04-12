@@ -1,0 +1,32 @@
+Image: C:\Users\matan\OneDrive\שולחן העבודה\AdiZakay\beam1.tif
+	Pixel size: 0.428 μm
+	Beam size (x, y) in micrometers: (97.99617508659685, 92.18236135715273)
+	Beam position (x, y) in micrometers: (637.5057779826758, 220.82268821997192)
+
+
+Image: C:\Users\matan\OneDrive\שולחן העבודה\AdiZakay\beam2.tif
+	Pixel size: 0.428 μm
+	Beam size (x, y) in micrometers: (97.99622106812626, 92.18248604728399)
+	Beam position (x, y) in micrometers: (627.6556708986275, 229.81626426776896)
+
+
+Image: C:\Users\matan\OneDrive\שולחן העבודה\AdiZakay\beam3.tif
+	Pixel size: 0.428 μm
+	Beam size (x, y) in micrometers: (97.99622344412154, 92.18335803046384)
+	Beam position (x, y) in micrometers: (601.5314738955853, 252.942602805639)
+
+
+Image: C:\Users\matan\OneDrive\שולחן העבודה\AdiZakay\beam4.tif
+	Pixel size: 0.428 μm
+	Beam size (x, y) in micrometers: (97.99721584823418, 92.18335567521375)
+	Beam position (x, y) in micrometers: (618.6620944953864, 251.65780623149487)
+
+
+Image: C:\Users\matan\OneDrive\שולחן העבודה\AdiZakay\beam5.tif
+	Pixel size: 0.428 μm
+	Beam size (x, y) in micrometers: (97.99621738716223, 92.18335595425486)
+	Beam position (x, y) in micrometers: (622.9447501289133, 234.95545077026125)
+
+
+Pointing stability RMS for x-axis: 11.86 μm
+Pointing stability RMS for y-axis: 12.50 μm
