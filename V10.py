@@ -14,9 +14,9 @@ def gaussian(x, amplitude, mean, stddev, up_shift):
     return amplitude * np.exp( (-pow(x - mean, 2)) / (2*pow(stddev,2)) ) + up_shift
 
 # 3.2 Function to calculate the beam size and position
-def calculate_beam_properties(image, pixel_size_um):
+def calculate_beam_properties(image, pixel_size_um, iteration):
     #reshape image if needed
-    if(len(image.shape) == 3): image = image[:, :, 2]
+    if(len(image.shape) == 3): image = image[:, :, 2] #slice the third dimention and leave only the first item
 
     # Sum the values of the pixels along x and y axes
     sum_x = np.sum(image, axis=0)
@@ -56,7 +56,7 @@ def calculate_beam_properties(image, pixel_size_um):
     axis[1].plot(gaussian(y_axis, *optimal_y), y_axis, label='optimal_y')
     axis[0].legend() #apply the labels
     axis[1].legend()
-    plt.show()
+    if(iteration == 0): plt.show()
 
 
     # Calculate beam size (twice the standard deviation) and position
@@ -69,11 +69,7 @@ def calculate_beam_properties(image, pixel_size_um):
     beam_position_x_um = pixel_size_um * mean_x
     beam_position_y_um = pixel_size_um * mean_y
 
-    #Convert the mean values to micrometers
-    mean_x_um = pixel_size_um * mean_x
-    mean_y_um = pixel_size_um * mean_y
-
-    return mean_x_um, (beam_size_x_um, beam_size_y_um), mean_y_um, (beam_position_x_um, beam_position_y_um)
+    return mean_x, (beam_size_x_um, beam_size_y_um), mean_y, (beam_position_x_um, beam_position_y_um)
 
 
 # Function to calculate RMS
@@ -101,14 +97,15 @@ with open(input_file, encoding="UTF-8") as f:
 image_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.tif')]
 
 # Initialize lists to store beam positions
-beam_positions_x = []
-beam_positions_y = []
+beam_size_x_um = []
+beam_size_y_um = []
+beam_positions_x_pixels = []
+beam_positions_y_pixels = []
 
-f = open("Beam_Size_measerment_results.txt", "w", encoding="UTF-8")
+iteration = 0
+f_out = open("Beam_Size_measerment_results.txt", "w", encoding="UTF-8")
 # Load each image and calculate pixel size
 for image_file in image_files:
-
-    print(f'Image: {image_file}', end='\n', file=f)
 
     # Load image
     image = imread(image_file)
@@ -118,41 +115,35 @@ for image_file in image_files:
     
     # 3.1 Calculate pixel size in micrometers
     pixel_size_um = calculate_pixel_size(sensor_size_mm, num_pixels_x)
-    print(f'\tPixel size: {pixel_size_um:.3f} μm', end='\n', file=f)
 
     # 3.2 Calculate beam size and position
-    mean_x_um, beam_size_um, mean_y_um, beam_position_um = calculate_beam_properties(image, pixel_size_um)
+    mean_x, beam_size_um, mean_y, beam_position_um = calculate_beam_properties(image, pixel_size_um, iteration)
     
-    print(f'\tBeam size x in micrometers: {beam_size_um[0]}', end='\n', file=f)
-    print(f'\tBeam size y in micrometers: {beam_size_um[0]}', end='\n', file=f)
-    print(f'\tBeam position (x, y) in micrometers: {beam_position_um}', end='\n', file=f)
+    #Append te values
+    beam_size_x_um.append(beam_size_um[0])
+    beam_size_y_um.append(beam_size_um[1])
+    beam_positions_x_pixels.append(mean_x)
+    beam_positions_y_pixels.append(mean_y)
 
-
-    
-    beam_positions_x.append(mean_x_um)
-    beam_positions_y.append(mean_y_um)
-
-    print('\n', file=f)
+    if(iteration == 0): iteration += 1
 
 # Convert lists to numpy arrays
-beam_positions_x = np.array(beam_positions_x)
-beam_positions_y = np.array(beam_positions_y)
+beam_positions_x_pixels = np.array(beam_positions_x_pixels)
+beam_positions_y_pixels = np.array(beam_positions_y_pixels)
 
 # Calculate RMS for x and y beam positions
-rms_x, rms_y, rms_r = calculate_rms(beam_positions_x, beam_positions_y)
+rms_x, rms_y, rms_r = calculate_rms(beam_positions_x_pixels, beam_positions_y_pixels)
 
-print(f'Pointing stability in axis x in micrometers: {rms_x:.2f}', end='\n', file=f)
-print(f'Pointing stability in axis y in micrometers: {rms_y:.2f}', end='\n', file=f)
-print(f'Pointing stability in axis r in micrometers: {rms_r:.2f}', end='\n', file=f)
 
+print(f'Beams average size x in micrmeters: {np.mean(beam_size_x_um):.3f}', end='\n', file=f_out)
+print(f'Beams average size x in micrmeters: {np.mean(beam_size_y_um):.3f}', end='\n', file=f_out)
+print(f'Pointing stability in axis x in micrometers: {rms_x:.3f}', end='\n', file=f_out)
+print(f'Pointing stability in axis y in micrometers: {rms_y:.3f}', end='\n', file=f_out)
+print(f'Pointing stability in axis r in micrometers: {rms_r:.3f}', end='\n', file=f_out)
+print(f'Beams average x postion in pixels: {np.mean(beam_positions_x_pixels):.3f}', end='\n', file=f_out)
+print(f'Beams average y postion in pixels: {np.mean(beam_positions_y_pixels):.3f}', end='\n', file=f_out)
+print(f'Pixel size in micrometers: {pixel_size_um:.3f}', end='\n', file=f_out)
+print(f'Name of the directory of the images: {directory}', end='', file=f_out)
+f_out.close()
 f.close()
-
-
-
-    
-
-
-
-
-
 

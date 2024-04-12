@@ -1,1 +1,9 @@
-Image: C:\Users\elisu\Desktop\matan\לימודים\repos\Python\beam1.tif
+Beams average size x in micrmeters: 97.996
+Beams average size x in micrmeters: 92.183
+Pointing stability in axis x in micrometers: 27.684
+Pointing stability in axis y in micrometers: 29.185
+Pointing stability in axis r in micrometers: 40.226
+Beams average x postion in pixels: 1451.576
+Beams average y postion in pixels: 555.821
+Pixel size in micrometers: 0.428
+Name of the directory of the images: C:\Users\elisu\Desktop\matan\לימודים\repos\Python\beam_data\
