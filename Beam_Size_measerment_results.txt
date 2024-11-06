@@ -1,9 +1,0 @@
-Beams average size x in micrometers: 9.80e+02
-Beams average size x in micrometers: 9.22e+02
-Pointing stability in axis x in micrometers: 2.77e+01
-Pointing stability in axis y in micrometers: 2.92e+01
-Pointing stability in axis r in micrometers: 4.02e+01
-Beams average x postion in pixels: 1.45e+03
-Beams average y postion in pixels: 5.56e+02
-Pixel size in micrometers: 4.28e+00
-Name of the directory of the images: C:\Users\elisu\Desktop\matan\לימודים\repos\Python\beam_data\
